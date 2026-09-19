@@ -1,7 +1,7 @@
 # bash_profile
 * .vimrc - some nice defaults
-* kubernetes.bashrc - helpful completion and shortcuts
-* ps1.bashrc - setting up a default PS1
+* .bashrc.d/kubernetes.bashrc - helpful completion and shortcuts
+* .bashrc.d/ps1.bashrc - setting up a default PS1
 
 # Usage
 
