@@ -1,5 +1,21 @@
 alias k='kubectl'
 
+# kubectl completion
+if command -v kubectl &> /dev/null; then
+    source <(kubectl completion bash)
+fi
+
+# helm completion
+if command -v helm &> /dev/null; then
+    source <(helm completion bash)
+fi
+
+# flux completion
+if command -v flux &> /dev/null; then
+    source <(flux completion bash)
+fi
+
+# Sets the current namespace in the kubeconfig
 function kns() {
   if [ -z "$1" ]; then
     echo "$(kubectl config view --minify --output 'jsonpath={..namespace}')"
@@ -12,6 +28,7 @@ function kns() {
   fi
 }
 
+# Sets the context in use in the kubeconfig
 function kcx() {
   if [ -z "$1" ]; then
     kubectl config current-context
@@ -24,6 +41,7 @@ function kcx() {
   fi
 }
 
+# Custom bash completion for custom functions
 function _kns_complete() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
   COMPREPLY=( $(compgen -W "$(kubectl get namespaces -o jsonpath='{.items[*].metadata.name}')" -- "$cur") )
