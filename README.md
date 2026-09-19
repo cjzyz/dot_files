@@ -2,6 +2,7 @@
 * .vimrc - some nice defaults
 * .bashrc.d/kubernetes.bashrc - helpful completion and shortcuts
 * .bashrc.d/ps1.bashrc - setting up a default PS1
+* .git-hooks/commit-msg - ensures git commit msg follows conventional commits
 
 # Usage
 

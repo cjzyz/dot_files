@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Commit message hook to enforce conventional commits
+# Based on https://www.conventionalcommits.org/
+
+COMMIT_MSG_FILE=$1
+COMMIT_MSG=$(cat "$COMMIT_MSG_FILE")
+
+# Regex for conventional commit format
+# type(scope): description
+# Types: feat, fix, docs, style, refactor, test, chore, etc.
+CONVENTIONAL_COMMIT_REGEX="^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\(.+\))?!?: .{1,}"
+
+# Allow merge commits
+if echo "$COMMIT_MSG" | grep -qE "^Merge "; then
+    exit 0
+fi
+
+# Allow revert commits
+if echo "$COMMIT_MSG" | grep -qE "^Revert "; then
+    exit 0
+fi
+
+# Check if commit message matches conventional format
+if ! echo "$COMMIT_MSG" | grep -qE "$CONVENTIONAL_COMMIT_REGEX"; then
+    echo "ERROR: Commit message does not follow conventional commit format."
+    echo ""
+    echo "Expected format: type(scope): description"
+    echo "Examples:"
+    echo "  feat: add new feature"
+    echo "  fix(ui): resolve button alignment"
+    echo "  docs: update README"
+    echo "  chore: update dependencies"
+    echo ""
+    echo "See https://www.conventionalcommits.org/ for more details."
+    exit 1
+fi
+
+echo "✓ Commit message follows conventional commit format."
+
