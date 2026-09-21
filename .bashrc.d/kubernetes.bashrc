@@ -55,3 +55,4 @@ function _kcx_complete() {
 complete -o default -F __start_kubectl k
 complete -F _kcx_complete kcx
 complete -F _kns_complete kns
+

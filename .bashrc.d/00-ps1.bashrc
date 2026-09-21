@@ -5,8 +5,11 @@ function color_my_prompt {
         local __git_branch_color="\[\033[31m\]"
         local __git_branch='`git branch 2> /dev/null | grep -e ^* | sed -E  s/^\\\\\*\ \(.+\)$/\(\\\\\1\)\ /`'
     fi
+    if command -v kubectl > /dev/null; then
+        local __current_context='\[\033[01;33m\][`kubectl config current-context 2> /dev/null`]'
+    fi
     local __prompt_tail="\[\033[35m\]$"
     local __last_color="\[\033[00m\]"
-    export PS1="\n$__user_and_host $__cur_location $__git_branch_color$__git_branch\n$__prompt_tail$__last_color "
+    export PS1="\n$__user_and_host $__cur_location $__git_branch_color$__git_branch$__current_context\n$__prompt_tail$__last_color "
 }
 color_my_prompt
